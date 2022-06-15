@@ -1,5 +1,4 @@
-using Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist;
-using MediatR;
+using Financials.Minimal.WebApi.Extensions;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 using TraderShop.Financials.Application.DependencyInjection;
@@ -37,23 +36,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.AddTdAmeritradeEndPoints(accountId, options);
 
 app.UseHttpsRedirection();
 
-
-app.MapGet("/Tdameritrade/Watchlist/{id}", async (
-    string watchlistId,
-    IMediator _mediator,
-    CancellationToken cancellationToken) =>
-{
-    var (watchlist, message) = await _mediator.Send(new GetWatchlistQuery(accountId, watchlistId), cancellationToken);
-
-    if (message == null)
-    {
-        return Results.Json(watchlist, options);
-    }
-
-    return Results.BadRequest(message);
-});
 
 app.Run();
