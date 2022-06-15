@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="TraderShop.Financials.Abstractions" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Abstractions" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Accounts" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Instruments" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.MarketHours" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Movers" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.OptionChains" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Orders" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.PriceHistory" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Quotes" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.SavedOrders" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.TransactionHistory" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.UserInfo" Version="1.0.2" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.WatchList" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,199 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.WebApi\\Financials.Minimal.WebApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\Financials.Minimal.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\Financials.Minimal.Application.csproj",
+        "projectName": "Financials.Minimal.Application",
+        "projectPath": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\Financials.Minimal.Application.csproj",
+        "packagesPath": "C:\\Users\\ucren\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ucren\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "TraderShop.Financials.Abstractions": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Abstractions": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Accounts": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Instruments": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.MarketHours": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Movers": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.OptionChains": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Orders": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.PriceHistory": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.Quotes": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.SavedOrders": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.TransactionHistory": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.UserInfo": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "TraderShop.Financials.TdAmeritrade.WatchList": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.WebApi\\Financials.Minimal.WebApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.WebApi\\Financials.Minimal.WebApi.csproj",
+        "projectName": "Financials.Minimal.WebApi",
+        "projectPath": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.WebApi\\Financials.Minimal.WebApi.csproj",
+        "packagesPath": "C:\\Users\\ucren\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.WebApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ucren\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\Financials.Minimal.Application.csproj": {
+                "projectPath": "C:\\Users\\ucren\\source\\repos\\Financials.Minimal.WebApi\\src\\Financials.Minimal.Application\\Financials.Minimal.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.15.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

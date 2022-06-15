@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financials.Minimal.WebApi", "Financials.Minimal.WebApi\Financials.Minimal.WebApi.csproj", "{66AE2EF6-4925-4240-8524-5F406418EE97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financials.Minimal.WebApi", "src\Financials.Minimal.WebApi\Financials.Minimal.WebApi.csproj", "{66AE2EF6-4925-4240-8524-5F406418EE97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financials.Minimal.Application", "src\Financials.Minimal.Application\Financials.Minimal.Application.csproj", "{0A3F3858-446D-402A-8B6C-16623E43DEC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CD3DD817-7B5C-4CA2-A9C2-EC7552079EA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EFD616CE-DC28-4E59-8169-F894E4D9814F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financials.Minimal.WebApi.FunctionalTests", "tests\Financials.Minimal.WebApi.FunctionalTests\Financials.Minimal.WebApi.FunctionalTests.csproj", "{A0EFCCD0-5322-43FB-B1CD-1F50994E383D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,22 @@ Global
 		{66AE2EF6-4925-4240-8524-5F406418EE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66AE2EF6-4925-4240-8524-5F406418EE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66AE2EF6-4925-4240-8524-5F406418EE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3F3858-446D-402A-8B6C-16623E43DEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3F3858-446D-402A-8B6C-16623E43DEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3F3858-446D-402A-8B6C-16623E43DEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3F3858-446D-402A-8B6C-16623E43DEC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0EFCCD0-5322-43FB-B1CD-1F50994E383D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0EFCCD0-5322-43FB-B1CD-1F50994E383D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0EFCCD0-5322-43FB-B1CD-1F50994E383D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0EFCCD0-5322-43FB-B1CD-1F50994E383D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66AE2EF6-4925-4240-8524-5F406418EE97} = {CD3DD817-7B5C-4CA2-A9C2-EC7552079EA9}
+		{0A3F3858-446D-402A-8B6C-16623E43DEC3} = {CD3DD817-7B5C-4CA2-A9C2-EC7552079EA9}
+		{A0EFCCD0-5322-43FB-B1CD-1F50994E383D} = {EFD616CE-DC28-4E59-8169-F894E4D9814F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FED091AA-E50C-4A4A-A0C0-981828232C51}
