@@ -4,7 +4,7 @@ using TraderShop.Financials.TdAmeritrade.WatchList.Services;
 
 namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
 {
-    public class GetWatchlistHandler : IRequestHandler<GetWatchlistQuery, (RequestedWatchlist? watchlist, string? exception)>
+    public class GetWatchlistHandler : IRequestHandler<GetWatchlist, (RequestedWatchlist? watchlist, string? exception)>
     {
         private readonly ITdAmeritradeWatchlistProvider _watchlistProvider;
 
@@ -13,7 +13,7 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
             _watchlistProvider = watchlistProvider;
         }
 
-        public async Task<(RequestedWatchlist? watchlist, string? exception)> Handle(GetWatchlistQuery request, CancellationToken cancellationToken)
+        public async Task<(RequestedWatchlist? watchlist, string? exception)> Handle(GetWatchlist request, CancellationToken cancellationToken)
         {
             try
             {

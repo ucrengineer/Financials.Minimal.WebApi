@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist
+namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
 {
-    internal class GetWatchlistsForSingleAccountsQuery
+    internal class UpdateWatchlist
     {
     }
 }

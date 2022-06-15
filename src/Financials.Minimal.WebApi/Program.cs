@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.AddTdAmeritradeEndPoints(accountId, options);
+app.AddTdAmeritradeEndPointsAsync(options);
 
 app.UseHttpsRedirection();
 
