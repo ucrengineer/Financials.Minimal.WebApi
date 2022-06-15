@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Extensions\" />
+    <Compile Remove="Commands\**" />
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Commands\**" />
+    <None Remove="Extensions\**" />
   </ItemGroup>
 
   <ItemGroup>
