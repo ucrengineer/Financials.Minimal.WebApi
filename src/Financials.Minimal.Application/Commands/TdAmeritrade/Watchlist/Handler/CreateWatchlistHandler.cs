@@ -1,9 +1,8 @@
-﻿using MediatR;
-using TraderShop.Financials.TdAmeritrade.WatchList.Services;
+﻿using TraderShop.Financials.TdAmeritrade.WatchList.Services;
 
 namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
 {
-    public class CreateWatchlistHandler : IRequestHandler<CreateWatchlist, (string, bool)>
+    public class CreateWatchlistHandler : CommandHandler<CreateWatchlist, CommandResult>
     {
         private readonly ITdAmeritradeWatchlistProvider _watchlistProvider;
 
@@ -12,23 +11,10 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
             _watchlistProvider = watchlistProvider;
         }
 
-        public async Task<(string, bool)> Handle(CreateWatchlist command, CancellationToken cancellationToken)
+        public override async Task<CommandResult> ExecuteCommand(CreateWatchlist command, CancellationToken cancellationToken)
         {
-            var validationResult = command.Validate();
-
-            if (validationResult.IsValid)
-            {
-                try
-                {
-                    await _watchlistProvider.CreateWatchlist(command.AccountId, command.CreatedWatchlist, cancellationToken);
-                    return ($"{command.CreatedWatchlist.Name} created.", true);
-                }
-                catch (Exception ex)
-                {
-                    return (ex.Message, false);
-                }
-            }
-            return (string.Join(",", validationResult.Errors), false);
+            await _watchlistProvider.CreateWatchlist(command.AccountId, command.CreatedWatchlist, cancellationToken);
+            return new CommandResult($"{nameof(command)} {command.CreatedWatchlist.Name} complete.", true);
 
         }
     }

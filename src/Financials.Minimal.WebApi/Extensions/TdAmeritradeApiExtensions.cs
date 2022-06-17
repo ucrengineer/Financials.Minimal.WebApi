@@ -8,7 +8,7 @@ namespace Financials.Minimal.WebApi.Extensions
 {
     public static class TdAmeritradeApiExtensions
     {
-        public static async Task AddTdAmeritradeEndPointsAsync(this WebApplication app, JsonSerializerOptions options)
+        public static Task AddTdAmeritradeEndPointsAsync(this WebApplication app, JsonSerializerOptions options)
         {
             app.MapGet("/Tdameritrade/Watchlist/{watchlistId}", async (
                 string watchlistId,
@@ -16,6 +16,7 @@ namespace Financials.Minimal.WebApi.Extensions
                 IMediator _mediator,
                 CancellationToken cancellationToken) =>
             {
+
                 var (watchlist, message) = await _mediator.Send(new GetWatchlist(accountId, watchlistId), cancellationToken);
 
                 if (message == null)
@@ -63,11 +64,11 @@ namespace Financials.Minimal.WebApi.Extensions
             {
                 var result = await _mediator.Send(createWatchlistCommand, cancellationToken);
 
-                if (result.Item2)
+                if (result.Result.Completed)
                 {
-                    return Results.Ok(result.Item1);
+                    return Results.Ok(result.Result.Message);
                 }
-                return Results.BadRequest(result.Item1);
+                return Results.BadRequest(result.Result.Message);
             });
 
             app.MapDelete("/TdAmeritrade/Watchlist/Delete/{watchlistId}", async (
@@ -86,7 +87,7 @@ namespace Financials.Minimal.WebApi.Extensions
             });
 
 
-            app.MapPut("/TdAmeritrade/Watchlist/Replace", async (
+            app.MapPost("/TdAmeritrade/Watchlist/Replace", async (
                ReplaceWatchlist replaceWatchlistCommand,
                IMediator _mediator,
                CancellationToken cancellationToken) =>
@@ -100,6 +101,20 @@ namespace Financials.Minimal.WebApi.Extensions
                 return Results.BadRequest(result.Item1);
             });
 
+            app.MapPut("/TdAmeritrade/Watchlist/Update", async (
+                UpdateWatchlist updateWatchlistCommand,
+                IMediator _mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var result = await _mediator.Send(updateWatchlistCommand, cancellationToken);
+
+                if (result.Item2)
+                {
+                    return Results.Ok(result.Item1);
+                }
+                return Results.BadRequest(result.Item1);
+            });
+            return Task.CompletedTask;
         }
     }
 }

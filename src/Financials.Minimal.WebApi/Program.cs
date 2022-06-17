@@ -1,5 +1,6 @@
 using Financials.Minimal.WebApi.Extensions;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
 using System.Text.Json;
 using TraderShop.Financials.Application.DependencyInjection;
 using TraderShop.Financials.TdAmeritrade.Abstractions.Options;
@@ -18,7 +19,7 @@ builder.Services.AddApplication();
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
     options.SerializerOptions.IncludeFields = true;
-    options.SerializerOptions.IgnoreReadOnlyFields = false;
+    options.SerializerOptions.IgnoreReadOnlyFields = true;
 });
 
 var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
@@ -26,8 +27,6 @@ var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 builder.Logging.AddConsole();
 
 var app = builder.Build();
-
-var accountId = app.Services.GetRequiredService<IOptionsMonitor<TdAmeritradeOptions>>().CurrentValue.account_number;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -40,5 +39,20 @@ app.AddTdAmeritradeEndPointsAsync(options);
 
 app.UseHttpsRedirection();
 
+// global exception handler
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Response.ContentType = "application/json";
+
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+        if (contextFeature != null)
+            await context.Response.WriteAsync(contextFeature.Error.Message);
+
+    });
+});
 
 app.Run();

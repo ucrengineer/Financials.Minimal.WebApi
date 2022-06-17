@@ -6,7 +6,7 @@ using TraderShop.Financials.TdAmeritrade.WatchList.Models;
 namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
 {
     [DataContract]
-    public class CreateWatchlist : ICommand<(string, bool)>
+    public record class CreateWatchlist : Command<CommandResult>
     {
         [DataMember]
         public string AccountId { get; private set; }
@@ -20,11 +20,12 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
             CreatedWatchlist = createdWatchlist;
         }
 
-        public ValidationResult Validate()
+        public override ValidationResult Validate()
         {
             return new CreatedWatchlistCommandValidator().Validate(this);
         }
     }
+
     public class CreatedWatchlistCommandValidator : AbstractValidator<CreateWatchlist>
     {
         public CreatedWatchlistCommandValidator()
