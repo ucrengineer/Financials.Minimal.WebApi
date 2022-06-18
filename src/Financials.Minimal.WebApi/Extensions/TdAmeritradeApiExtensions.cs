@@ -1,4 +1,5 @@
 ﻿using Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist;
+using Financials.Minimal.Application.Queries.TdAmeritrade.Account;
 using Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,37 @@ namespace Financials.Minimal.WebApi.Extensions
 {
     public static class TdAmeritradeApiExtensions
     {
+        public class AccountFields
+        {
+            public string[]? QueryFields { get; set; } = new string[0];
+
+            public static bool TryParse(string? value, out AccountFields? queryFields)
+            {
+                var segments = value?.ToLower().Split(',',
+                        StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                queryFields = new AccountFields { QueryFields = segments };
+                return true;
+            }
+        }
+
         public static void AddTdAmeritradeEndPoints(this WebApplication app, JsonSerializerOptions options)
         {
+            app.MapGet("/Tdameritrade/Account/{accountId}", async (
+                string accountId,
+                AccountFields? fields,
+                IMediator _mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var result = await _mediator.Send(new GetAccount(accountId, fields?.QueryFields), cancellationToken);
+
+                if (result.Result != null)
+                {
+                    return Results.Json(result.Result, options);
+                }
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
+            });
+
             app.MapGet("/Tdameritrade/Watchlist/{watchlistId}", async (
                 string watchlistId,
                 [FromQuery] string accountId,
@@ -66,34 +96,19 @@ namespace Financials.Minimal.WebApi.Extensions
                 return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
 
-            app.MapDelete("/TdAmeritrade/Watchlist/Delete/{watchlistId}", async (
-               string watchlistId,
-               [FromQuery] string accountId,
-               IMediator _mediator,
-               CancellationToken cancellationToken) =>
-            {
-                var result = await _mediator.Send(new DeleteWatchlist(accountId, watchlistId), cancellationToken);
-
-                if (result.Result.Completed)
-                {
-                    return Results.Ok(result.Result.Message);
-                }
-                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
-            });
-
             app.MapPost("/TdAmeritrade/Watchlist/Replace", async (
                ReplaceWatchlist replaceWatchlistCommand,
                IMediator _mediator,
                CancellationToken cancellationToken) =>
-            {
-                var result = await _mediator.Send(replaceWatchlistCommand, cancellationToken);
+                        {
+                            var result = await _mediator.Send(replaceWatchlistCommand, cancellationToken);
 
-                if (result.Result.Completed)
-                {
-                    return Results.Ok(result.Result.Message);
-                }
-                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
-            });
+                            if (result.Result.Completed)
+                            {
+                                return Results.Ok(result.Result.Message);
+                            }
+                            return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
+                        });
 
             app.MapPut("/TdAmeritrade/Watchlist/Update", async (
                 UpdateWatchlist updateWatchlistCommand,
@@ -101,6 +116,21 @@ namespace Financials.Minimal.WebApi.Extensions
                 CancellationToken cancellationToken) =>
             {
                 var result = await _mediator.Send(updateWatchlistCommand, cancellationToken);
+
+                if (result.Result.Completed)
+                {
+                    return Results.Ok(result.Result.Message);
+                }
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
+            });
+
+            app.MapDelete("/TdAmeritrade/Watchlist/Delete/{watchlistId}", async (
+               string watchlistId,
+               [FromQuery] string accountId,
+               IMediator _mediator,
+               CancellationToken cancellationToken) =>
+            {
+                var result = await _mediator.Send(new DeleteWatchlist(accountId, watchlistId), cancellationToken);
 
                 if (result.Result.Completed)
                 {

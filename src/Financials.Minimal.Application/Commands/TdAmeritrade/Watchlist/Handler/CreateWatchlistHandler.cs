@@ -15,7 +15,6 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
         {
             await _watchlistProvider.CreateWatchlist(command.AccountId, command.CreatedWatchlist, cancellationToken);
             return new CommandResult($"{command.CreatedWatchlist.Name} created.", true);
-
         }
     }
 }
