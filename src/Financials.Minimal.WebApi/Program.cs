@@ -22,6 +22,9 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
     options.SerializerOptions.IgnoreReadOnlyFields = true;
 });
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
 builder.Logging.AddConsole();
@@ -35,7 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.AddTdAmeritradeEndPointsAsync(options);
+app.AddTdAmeritradeEndPoints(options);
 
 app.UseHttpsRedirection();
 
@@ -51,7 +54,6 @@ app.UseExceptionHandler(appError =>
 
         if (contextFeature != null)
             await context.Response.WriteAsync(contextFeature.Error.Message);
-
     });
 });
 

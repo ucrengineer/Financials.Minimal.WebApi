@@ -1,9 +1,8 @@
-﻿using MediatR;
-using TraderShop.Financials.TdAmeritrade.WatchList.Services;
+﻿using TraderShop.Financials.TdAmeritrade.WatchList.Services;
 
 namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
 {
-    public class ReplaceWatchlistHandler : IRequestHandler<ReplaceWatchlist, (string, bool)>
+    public class ReplaceWatchlistHandler : CommandHandler<ReplaceWatchlist, CommandResult>
     {
         private readonly ITdAmeritradeWatchlistProvider _watchlistProvider;
         public ReplaceWatchlistHandler(ITdAmeritradeWatchlistProvider watchlistProvider)
@@ -11,17 +10,10 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
             _watchlistProvider = watchlistProvider;
         }
 
-        public async Task<(string, bool)> Handle(ReplaceWatchlist command, CancellationToken cancellationToken)
+        public override async Task<CommandResult> ExecuteCommand(ReplaceWatchlist command, CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await _watchlistProvider.ReplaceWatchlist(command.AccountId, command.ReplacementWatchlist, cancellationToken);
-                return ($"{command.ReplacementWatchlist.WatchlistId} has been replaced.", true);
-            }
-            catch (Exception ex)
-            {
-                return (ex.Message, false);
-            }
+            await _watchlistProvider.ReplaceWatchlist(command.AccountId, command.ReplacementWatchlist, cancellationToken);
+            return new CommandResult($"{command.ReplacementWatchlist.WatchlistId} replaced.", true);
         }
     }
 }

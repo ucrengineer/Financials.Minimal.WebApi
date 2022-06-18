@@ -1,10 +1,9 @@
-﻿using MediatR;
-using TraderShop.Financials.TdAmeritrade.WatchList.Models;
+﻿using TraderShop.Financials.TdAmeritrade.WatchList.Models;
 using TraderShop.Financials.TdAmeritrade.WatchList.Services;
 
 namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
 {
-    public class GetWatchlistHandler : IRequestHandler<GetWatchlist, (RequestedWatchlist? watchlist, string? exception)>
+    public class GetWatchlistHandler : QueryHandler<GetWatchlist, RequestedWatchlist>
     {
         private readonly ITdAmeritradeWatchlistProvider _watchlistProvider;
 
@@ -13,17 +12,9 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
             _watchlistProvider = watchlistProvider;
         }
 
-        public async Task<(RequestedWatchlist? watchlist, string? exception)> Handle(GetWatchlist request, CancellationToken cancellationToken)
+        public override async Task<RequestedWatchlist> ExecuteQuery(GetWatchlist request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var result = await _watchlistProvider.GetWatchlist(request.AccountId, request.WatchlistId, cancellationToken);
-                return (result, null);
-            }
-            catch (Exception ex)
-            {
-                return (null, ex.Message);
-            }
+            return await _watchlistProvider.GetWatchlist(request.AccountId, request.WatchlistId, cancellationToken);
         }
     }
 }

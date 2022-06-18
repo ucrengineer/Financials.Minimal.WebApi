@@ -8,7 +8,7 @@ namespace Financials.Minimal.WebApi.Extensions
 {
     public static class TdAmeritradeApiExtensions
     {
-        public static Task AddTdAmeritradeEndPointsAsync(this WebApplication app, JsonSerializerOptions options)
+        public static void AddTdAmeritradeEndPoints(this WebApplication app, JsonSerializerOptions options)
         {
             app.MapGet("/Tdameritrade/Watchlist/{watchlistId}", async (
                 string watchlistId,
@@ -16,30 +16,26 @@ namespace Financials.Minimal.WebApi.Extensions
                 IMediator _mediator,
                 CancellationToken cancellationToken) =>
             {
+                var result = await _mediator.Send(new GetWatchlist(accountId, watchlistId), cancellationToken);
 
-                var (watchlist, message) = await _mediator.Send(new GetWatchlist(accountId, watchlistId), cancellationToken);
-
-                if (message == null)
+                if (result.Result != null)
                 {
-                    return Results.Json(watchlist, options);
+                    return Results.Json(result.Result, options);
                 }
-
-                return Results.BadRequest(message);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
-
 
             app.MapGet("/Tdameritrade/Watchlist/MultipleAccounts", async (
                 IMediator _mediator,
                 CancellationToken cancellationToken) =>
             {
-                var (watchlist, message) = await _mediator.Send(new GetWatchlistsForMultipleAccounts(), cancellationToken);
+                var result = await _mediator.Send(new GetWatchlistsForMultipleAccounts(), cancellationToken);
 
-                if (message == null)
+                if (result.Result != null)
                 {
-                    return Results.Json(watchlist, options);
+                    return Results.Json(result.Result, options);
                 }
-
-                return Results.BadRequest(message);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
 
             app.MapGet("/Tdameritrade/Watchlist/SingleAccount/{accountId}", async (
@@ -47,14 +43,13 @@ namespace Financials.Minimal.WebApi.Extensions
                 IMediator _mediator,
                 CancellationToken cancellationToken) =>
             {
-                var (watchlist, message) = await _mediator.Send(new GetWatchlistsForSingleAccounts(accountId), cancellationToken);
+                var result = await _mediator.Send(new GetWatchlistsForSingleAccounts(accountId), cancellationToken);
 
-                if (message == null)
+                if (result.Result != null)
                 {
-                    return Results.Json(watchlist, options);
+                    return Results.Json(result.Result, options);
                 }
-
-                return Results.BadRequest(message);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
 
             app.MapPost("/TdAmeritrade/Watchlist/Create", async (
@@ -68,7 +63,7 @@ namespace Financials.Minimal.WebApi.Extensions
                 {
                     return Results.Ok(result.Result.Message);
                 }
-                return Results.BadRequest(result.Result.Message);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
 
             app.MapDelete("/TdAmeritrade/Watchlist/Delete/{watchlistId}", async (
@@ -79,13 +74,12 @@ namespace Financials.Minimal.WebApi.Extensions
             {
                 var result = await _mediator.Send(new DeleteWatchlist(accountId, watchlistId), cancellationToken);
 
-                if (result.Item2)
+                if (result.Result.Completed)
                 {
-                    return Results.Ok(result.Item1);
+                    return Results.Ok(result.Result.Message);
                 }
-                return Results.BadRequest(result.Item1);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
-
 
             app.MapPost("/TdAmeritrade/Watchlist/Replace", async (
                ReplaceWatchlist replaceWatchlistCommand,
@@ -94,11 +88,11 @@ namespace Financials.Minimal.WebApi.Extensions
             {
                 var result = await _mediator.Send(replaceWatchlistCommand, cancellationToken);
 
-                if (result.Item2)
+                if (result.Result.Completed)
                 {
-                    return Results.Ok(result.Item1);
+                    return Results.Ok(result.Result.Message);
                 }
-                return Results.BadRequest(result.Item1);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
 
             app.MapPut("/TdAmeritrade/Watchlist/Update", async (
@@ -108,13 +102,12 @@ namespace Financials.Minimal.WebApi.Extensions
             {
                 var result = await _mediator.Send(updateWatchlistCommand, cancellationToken);
 
-                if (result.Item2)
+                if (result.Result.Completed)
                 {
-                    return Results.Ok(result.Item1);
+                    return Results.Ok(result.Result.Message);
                 }
-                return Results.BadRequest(result.Item1);
+                return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
             });
-            return Task.CompletedTask;
         }
     }
 }

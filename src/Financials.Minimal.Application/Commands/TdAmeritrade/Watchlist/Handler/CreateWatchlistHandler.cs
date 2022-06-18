@@ -14,7 +14,7 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
         public override async Task<CommandResult> ExecuteCommand(CreateWatchlist command, CancellationToken cancellationToken)
         {
             await _watchlistProvider.CreateWatchlist(command.AccountId, command.CreatedWatchlist, cancellationToken);
-            return new CommandResult($"{nameof(command)} {command.CreatedWatchlist.Name} complete.", true);
+            return new CommandResult($"{command.CreatedWatchlist.Name} created.", true);
 
         }
     }

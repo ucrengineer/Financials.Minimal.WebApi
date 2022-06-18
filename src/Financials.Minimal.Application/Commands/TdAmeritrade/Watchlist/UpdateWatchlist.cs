@@ -6,7 +6,7 @@ using TraderShop.Financials.TdAmeritrade.WatchList.Models;
 namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
 {
     [DataContract]
-    public class UpdateWatchlist : ICommand<(string, bool)>
+    public record class UpdateWatchlist : Command<CommandResult>
     {
         [DataMember]
         public string AccountId { get; private set; }
@@ -19,7 +19,7 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
             UpdatedWatchlist = updatedWatchlist;
         }
 
-        public ValidationResult Validate()
+        public override ValidationResult Validate()
         {
             return new UpdateWatchlistCommandValidator().Validate(this);
 
@@ -31,10 +31,15 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
         public UpdateWatchlistCommandValidator()
         {
             RuleFor(c => c.AccountId)
-            .NotEmpty().WithMessage("AccountId is empty.");
+            .NotEmpty().WithMessage("AccountId cannot be empty.")
+            .MinimumLength(9);
 
             RuleFor(c => c.UpdatedWatchlist)
-            .NotEmpty().WithMessage("Must have a updatedWatchlist");
+            .NotEmpty().WithMessage("Must have a updated watchlist object.");
+
+            RuleFor(c => c.UpdatedWatchlist.WatchlistItems)
+                .NotEmpty().WithMessage("Must have watchlist items in updated watchlist.");
+
 
         }
     }

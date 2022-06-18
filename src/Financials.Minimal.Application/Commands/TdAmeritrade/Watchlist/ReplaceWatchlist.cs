@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using System.Runtime.Serialization;
 using TraderShop.Financials.TdAmeritrade.WatchList.Models;
 
 namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
 {
     [DataContract]
-    public class ReplaceWatchlist : IRequest<(string, bool)>
+    public record class ReplaceWatchlist : Command<CommandResult>
     {
         [DataMember]
         public ReplacementWatchlist ReplacementWatchlist { get; private set; }
@@ -15,6 +16,27 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
         {
             ReplacementWatchlist = replacementWatchlist;
             AccountId = accountId;
+        }
+
+        public override ValidationResult Validate()
+        {
+            return new ReplaceWatchlistCommandValidator().Validate(this);
+        }
+    }
+
+    public class ReplaceWatchlistCommandValidator : AbstractValidator<ReplaceWatchlist>
+    {
+        public ReplaceWatchlistCommandValidator()
+        {
+            RuleFor(c => c.AccountId)
+            .NotEmpty().WithMessage("AccountId cannot be empty.");
+
+            RuleFor(c => c.ReplacementWatchlist)
+            .NotEmpty().WithMessage("Must have a replacement watchlist object.");
+
+            RuleFor(c => c.ReplacementWatchlist.WatchlistItems)
+                .NotEmpty().WithMessage("Must have watchlist items in replacement watchlist.");
+
         }
     }
 }

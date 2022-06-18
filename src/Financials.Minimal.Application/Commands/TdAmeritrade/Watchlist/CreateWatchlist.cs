@@ -22,19 +22,23 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
 
         public override ValidationResult Validate()
         {
-            return new CreatedWatchlistCommandValidator().Validate(this);
+            return new CreateWatchlistCommandValidator().Validate(this);
         }
     }
 
-    public class CreatedWatchlistCommandValidator : AbstractValidator<CreateWatchlist>
+    public class CreateWatchlistCommandValidator : AbstractValidator<CreateWatchlist>
     {
-        public CreatedWatchlistCommandValidator()
+        public CreateWatchlistCommandValidator()
         {
             RuleFor(c => c.AccountId)
-            .NotEmpty().WithMessage("AccountId is empty.");
+            .NotEmpty().WithMessage("AccountId cannot be empty.")
+            .MinimumLength(9);
 
             RuleFor(c => c.CreatedWatchlist)
-            .NotEmpty().WithMessage("Must have a createdWatchlist");
+            .NotEmpty().WithMessage("Must have a createdWatchlist object.");
+
+            RuleFor(c => c.CreatedWatchlist.WatchlistItems)
+                .NotEmpty().WithMessage("Must have watchlist items in new watchlist.");
 
         }
     }
