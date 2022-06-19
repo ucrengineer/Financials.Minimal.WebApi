@@ -31,11 +31,14 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist
         {
             RuleFor(c => c.AccountId)
             .NotEmpty().WithMessage("AccountId cannot be empty.")
-            .MinimumLength(9);
+            .MinimumLength(9)
+            .Must(x => int.TryParse(x, out var result));
 
             RuleFor(c => c.WatchlistId)
             .NotEmpty().WithMessage("WatchlistId cannot be empty")
-            .MinimumLength(10);
+            .MinimumLength(10)
+            .Must(x => int.TryParse(x, out var result));
+
 
         }
     }

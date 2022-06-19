@@ -32,7 +32,9 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
         {
             RuleFor(c => c.AccountId)
             .NotEmpty().WithMessage("AccountId cannot be empty.")
-            .MinimumLength(9);
+            .MinimumLength(9)
+            .Must(x => int.TryParse(x, out var result));
+
 
             RuleFor(c => c.UpdatedWatchlist)
             .NotEmpty().WithMessage("Must have a updated watchlist object.");

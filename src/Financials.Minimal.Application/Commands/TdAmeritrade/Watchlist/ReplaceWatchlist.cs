@@ -29,7 +29,9 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist
         public ReplaceWatchlistCommandValidator()
         {
             RuleFor(c => c.AccountId)
-            .NotEmpty().WithMessage("AccountId cannot be empty.");
+            .NotEmpty().WithMessage("AccountId cannot be empty.")
+            .Must(x => int.TryParse(x, out var result));
+
 
             RuleFor(c => c.ReplacementWatchlist)
             .NotEmpty().WithMessage("Must have a replacement watchlist object.");

@@ -6,36 +6,27 @@ using TraderShop.Financials.TdAmeritrade.Accounts.Models;
 namespace Financials.Minimal.Application.Queries.TdAmeritrade.Account
 {
     [DataContract]
-    public record class GetAccount : Query<SecuritiesAccount>
+    public record class GetAllAccounts : Query<SecuritiesAccount[]>
     {
         [DataMember]
-        public string AccountId { get; private set; }
-        [DataMember]
         public string? Fields { get; private set; }
-        public GetAccount(string accountId, string? fields)
+
+        public GetAllAccounts(string? fields)
         {
-            AccountId = accountId;
             Fields = fields;
         }
 
         public override ValidationResult Validate()
         {
-            return new GetAcccountQueryValidator().Validate(this);
+            return new GetAllAccountsQueryValidator().Validate(this);
         }
     }
 
-    public class GetAcccountQueryValidator : AbstractValidator<GetAccount>
+    public class GetAllAccountsQueryValidator : AbstractValidator<GetAllAccounts>
     {
         private string[] validFields { get; } = new string[] { "positions", "orders", "positions,orders", "orders,positions" };
-
-        public GetAcccountQueryValidator()
+        public GetAllAccountsQueryValidator()
         {
-            RuleFor(c => c.AccountId)
-            .NotEmpty().WithMessage("AccountId cannot be empty.")
-            .MinimumLength(9)
-            .Must(x => int.TryParse(x, out var result));
-
-
             When(x => x.Fields != null, () =>
             {
                 RuleFor(c => c.Fields)
@@ -44,8 +35,5 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Account
             });
         }
     }
-
-
-
 
 }
