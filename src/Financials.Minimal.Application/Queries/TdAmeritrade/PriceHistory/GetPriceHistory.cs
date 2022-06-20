@@ -38,10 +38,13 @@ public class GetPriceHistoryQueryValidator : AbstractValidator<GetPriceHistory>
             .Must(x => PeriodType.TryFromName(x.PeriodType, out var result))
             .WithMessage($"Valid periodTypes are : {string.Join(",", PeriodType.List.Select(x => x.Name))} ")
             .Must(x => int.TryParse(x.Period, out var result))
+            .WithMessage("Period must be a integer.")
             .Must(x => FrequencyType.TryFromName(x.FrequencyType, out var result))
             .WithMessage($"Valid frequencyTypes are : {string.Join(",", FrequencyType.List.Select(x => x.Name))} ")
             .Must(x => int.TryParse(x.Frequency, out var result))
+            .WithMessage("Frequency must be a integer.")
             .Must(x => bool.TryParse(x.NeedExtendedHoursData, out var result))
+            .WithMessage("Valid NeedExtendedHoursData values are true or false.")
             .Must(x => DateTimeOffset.TryParse(x.StartDate, out var result))
             .Must(x => DateTimeOffset.TryParse(x.EndDate, out var result));
     }
