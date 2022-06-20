@@ -2,6 +2,7 @@ using Financials.Minimal.WebApi.Extensions;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using TraderShop.Financials.Application.DependencyInjection;
 using TraderShop.Financials.TdAmeritrade.Abstractions.Options;
 
@@ -20,6 +21,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 {
     options.SerializerOptions.IncludeFields = true;
     options.SerializerOptions.IgnoreReadOnlyFields = true;
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 builder.Logging.ClearProviders();

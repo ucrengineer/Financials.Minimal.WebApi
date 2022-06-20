@@ -16,20 +16,24 @@
     <PackageReference Include="FluentValidation" Version="11.0.3" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="TraderShop.Financials.Abstractions" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Abstractions" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Accounts" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Instruments" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.MarketHours" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Movers" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.OptionChains" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Orders" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.PriceHistory" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Quotes" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.SavedOrders" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.TransactionHistory" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.UserInfo" Version="1.1.2" />
-    <PackageReference Include="TraderShop.Financials.TdAmeritrade.WatchList" Version="1.1.2" />
+    <PackageReference Include="TraderShop.Financials.Abstractions" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Abstractions" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Accounts" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Instruments" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.MarketHours" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Movers" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.OptionChains" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Orders" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.PriceHistory" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.Quotes" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.SavedOrders" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.TransactionHistory" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.UserInfo" Version="1.1.3" />
+    <PackageReference Include="TraderShop.Financials.TdAmeritrade.WatchList" Version="1.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\TdAmeritrade\PriceHistory\Dto\" />
   </ItemGroup>
 
 </Project>

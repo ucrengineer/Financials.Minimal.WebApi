@@ -1,7 +1,9 @@
 ﻿using Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist;
 using Financials.Minimal.Application.Queries.TdAmeritrade.Account;
 using Financials.Minimal.Application.Queries.TdAmeritrade.Instrument;
+using Financials.Minimal.Application.Queries.TdAmeritrade.PriceHistory;
 using Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist;
+using Financials.Minimal.WebApi.Models;
 using Financials.Minimal.WebApi.Models.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,37 @@ public static class TdAmeritradeApiExtensions
 
     public static void AddTdAmeritradeEndPoints(this WebApplication app, JsonSerializerOptions options)
     {
+
+        app.MapGet("/Tdameritrade/PriceHistory/{symbol}", async (
+            string symbol,
+            [FromQuery] string? periodType,
+            [FromQuery] string? period,
+            [FromQuery] string? frequencyType,
+            [FromQuery] string? frequency,
+            [FromQuery] string? endDate,
+            [FromQuery] string? startDate,
+            [FromQuery] string? needExtendedHoursData,
+            IMediator _mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var result = await _mediator.Send(new GetPriceHistory(symbol.Clean().ToUpper(),
+                                                    new PriceHistorySpecsDto(
+                                                        periodType?.Clean(),
+                                                        period,
+                                                        frequencyType?.Clean(),
+                                                        frequency,
+                                                        endDate?.Clean(),
+                                                        startDate?.Clean(),
+                                                        needExtendedHoursData)),
+                                                    cancellationToken);
+
+            if (result.Result != null)
+            {
+                return Results.Json(result.Result, options);
+            }
+            return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
+        });
+
         app.MapGet("/Tdameritrade/Instrument/Futures", async (
             IMediator _mediator,
             CancellationToken cancellationToken) =>
@@ -26,6 +59,7 @@ public static class TdAmeritradeApiExtensions
             }
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
+
         app.MapGet("/Tdameritrade/Instrument/{symbol}", async (
             string symbol,
             IMediator _mediator,

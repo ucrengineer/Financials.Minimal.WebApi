@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace Financials.Minimal.Application.Queries
 {
@@ -10,6 +11,7 @@ namespace Financials.Minimal.Application.Queries
 
     public abstract record class Query<TResult> : IQuery<QueryHandlerResult<TResult>>
     {
+        [JsonIgnore]
         public ValidationResult ValidationResult { get; init; }
 
         public virtual ValidationResult Validate()
