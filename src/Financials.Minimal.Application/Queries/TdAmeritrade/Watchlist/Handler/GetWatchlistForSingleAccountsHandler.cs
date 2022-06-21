@@ -8,7 +8,7 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
         private readonly ITdAmeritradeWatchlistProvider _watchlistProvider;
         public GetWatchlistForSingleAccountsHandler(ITdAmeritradeWatchlistProvider watchlistProvider)
         {
-            _watchlistProvider = watchlistProvider;
+            _watchlistProvider = watchlistProvider ?? throw new ArgumentNullException(nameof(watchlistProvider)); ;
         }
 
         public override async Task<RequestedWatchlist[]> ExecuteQuery(GetWatchlistsForSingleAccounts request, CancellationToken cancellationToken)

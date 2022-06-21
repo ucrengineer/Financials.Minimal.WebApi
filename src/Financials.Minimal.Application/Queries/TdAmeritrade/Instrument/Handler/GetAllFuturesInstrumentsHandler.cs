@@ -9,7 +9,7 @@ public class GetAllFuturesInstrumentsHandler : QueryHandler<GetAllFuturesInstrum
 
     public GetAllFuturesInstrumentsHandler(ITdAmeritradeInstrumentProvider instrumentProvider)
     {
-        _instrumentProvider = instrumentProvider;
+        _instrumentProvider = instrumentProvider ?? throw new ArgumentNullException(nameof(instrumentProvider));
     }
 
     public override async Task<lib.Instrument[]> ExecuteQuery(GetAllFuturesInstruments query, CancellationToken cancellationToken)

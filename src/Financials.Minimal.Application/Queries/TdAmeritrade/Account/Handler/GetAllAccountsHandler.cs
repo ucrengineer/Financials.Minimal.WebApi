@@ -5,16 +5,16 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Account.Handler
 {
     public class GetAllAccountsHandler : QueryHandler<GetAllAccounts, SecuritiesAccount[]>
     {
-        private readonly ITdAmeritradeAccountProvider _accountsProvider;
+        private readonly ITdAmeritradeAccountProvider _accountProvider;
 
-        public GetAllAccountsHandler(ITdAmeritradeAccountProvider accountsProvider)
+        public GetAllAccountsHandler(ITdAmeritradeAccountProvider accountProvider)
         {
-            _accountsProvider = accountsProvider;
+            _accountProvider = accountProvider ?? throw new ArgumentNullException(nameof(accountProvider));
         }
 
         public override async Task<SecuritiesAccount[]> ExecuteQuery(GetAllAccounts query, CancellationToken cancellationToken)
         {
-            return await _accountsProvider.GetAccounts(query.Fields);
+            return await _accountProvider.GetAccounts(query.Fields);
         }
     }
 }

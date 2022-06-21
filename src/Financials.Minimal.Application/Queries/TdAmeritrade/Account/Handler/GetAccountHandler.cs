@@ -8,7 +8,7 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Account.Handler
         private readonly ITdAmeritradeAccountProvider _accountProvider;
         public GetAccountHandler(ITdAmeritradeAccountProvider accountProvider)
         {
-            _accountProvider = accountProvider;
+            _accountProvider = accountProvider ?? throw new ArgumentNullException(nameof(accountProvider));
         }
 
         public override async Task<SecuritiesAccount> ExecuteQuery(GetAccount query, CancellationToken cancellationToken)

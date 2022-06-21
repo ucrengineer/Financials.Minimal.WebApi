@@ -9,7 +9,7 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Watchlist.Handler
 
         public GetWatchlistHandler(ITdAmeritradeWatchlistProvider watchlistProvider)
         {
-            _watchlistProvider = watchlistProvider;
+            _watchlistProvider = watchlistProvider ?? throw new ArgumentNullException(nameof(watchlistProvider)); ;
         }
 
         public override async Task<RequestedWatchlist> ExecuteQuery(GetWatchlist request, CancellationToken cancellationToken)

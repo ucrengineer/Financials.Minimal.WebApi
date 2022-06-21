@@ -11,7 +11,7 @@ namespace Financials.Minimal.Application.Queries.TdAmeritrade.Instrument.Handler
 
         public GetInstrumentsWithParametersHandler(ITdAmeritradeInstrumentProvider instrumentProvider)
         {
-            _instrumentProvider = instrumentProvider;
+            _instrumentProvider = instrumentProvider ?? throw new ArgumentNullException(nameof(instrumentProvider));
         }
 
         public override async Task<lib.Instrument[]> ExecuteQuery(GetInstrumentsWithParameters query, CancellationToken cancellationToken)

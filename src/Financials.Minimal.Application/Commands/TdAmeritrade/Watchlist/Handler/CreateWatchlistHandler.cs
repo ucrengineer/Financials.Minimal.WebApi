@@ -8,7 +8,7 @@ namespace Financials.Minimal.Application.Commands.TdAmeritrade.Watchlist.Handler
 
         public CreateWatchlistHandler(ITdAmeritradeWatchlistProvider watchlistProvider)
         {
-            _watchlistProvider = watchlistProvider;
+            _watchlistProvider = watchlistProvider ?? throw new ArgumentNullException(nameof(watchlistProvider));
         }
 
         public override async Task<CommandResult> ExecuteCommand(CreateWatchlist command, CancellationToken cancellationToken)
