@@ -7,7 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Financials.Minimal.WebApi/Financials.Minimal.WebApi.csproj", "Financials.Minimal.WebApi/"]
+COPY ["Financials.Minimal.WebApi.csproj", "Financials.Minimal.WebApi/"]
+# COPY ["Financials.Minimal.Application/Financials.Minimal.Application.csproj", "Financials.Minimal.Application/"]
+
 RUN dotnet restore "Financials.Minimal.WebApi/Financials.Minimal.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Financials.Minimal.WebApi"
