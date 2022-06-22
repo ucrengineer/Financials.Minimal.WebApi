@@ -17,7 +17,7 @@ public static class TdAmeritradeApiExtensions
     public static void AddTdAmeritradeEndPoints(this WebApplication app, JsonSerializerOptions options)
     {
 
-        app.MapGet("/Tdameritrade/PriceHistory/{symbol}", async (
+        app.MapGet("api/Tdameritrade/PriceHistory/{symbol}", async (
             string symbol,
             [FromQuery] string? periodType,
             [FromQuery] string? period,
@@ -47,7 +47,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Instrument/Futures", async (
+        app.MapGet("api/Tdameritrade/Instrument/Futures", async (
             IMediator _mediator,
             CancellationToken cancellationToken) =>
         {
@@ -60,7 +60,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Instrument/{symbol}", async (
+        app.MapGet("api/Tdameritrade/Instrument/{symbol}", async (
             string symbol,
             IMediator _mediator,
             CancellationToken cancellationToken) =>
@@ -74,7 +74,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Instruments/{symbols}", async (
+        app.MapGet("api/Tdameritrade/Instruments/{symbols}", async (
             string symbols,
             [FromQuery] string projection,
             IMediator _mediator,
@@ -88,7 +88,7 @@ public static class TdAmeritradeApiExtensions
             }
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
-        app.MapGet("/Tdameritrade/Accounts", async (
+        app.MapGet("api/Tdameritrade/Accounts", async (
             string? fields,
             IMediator _mediator,
             CancellationToken cancellationToken) =>
@@ -102,7 +102,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Account/{accountId}", async (
+        app.MapGet("api/Tdameritrade/Account/{accountId}", async (
             string accountId,
             string? fields,
             IMediator _mediator,
@@ -117,7 +117,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Watchlist/{watchlistId}", async (
+        app.MapGet("api/Tdameritrade/Watchlist/{watchlistId}", async (
             string watchlistId,
             [FromQuery] string accountId,
             IMediator _mediator,
@@ -132,7 +132,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Watchlist/MultipleAccounts", async (
+        app.MapGet("api/Tdameritrade/Watchlist/MultipleAccounts", async (
             IMediator _mediator,
             CancellationToken cancellationToken) =>
         {
@@ -145,7 +145,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapGet("/Tdameritrade/Watchlist/SingleAccount/{accountId}", async (
+        app.MapGet("api/Tdameritrade/Watchlist/SingleAccount/{accountId}", async (
             string accountId,
             IMediator _mediator,
             CancellationToken cancellationToken) =>
@@ -159,7 +159,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapPost("/TdAmeritrade/Watchlist/Create", async (
+        app.MapPost("api/Tdameritrade/Watchlist/Create", async (
            CreateWatchlist createWatchlistCommand,
            IMediator _mediator,
            CancellationToken cancellationToken) =>
@@ -173,7 +173,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapPost("/TdAmeritrade/Watchlist/Replace", async (
+        app.MapPost("api/Tdameritrade/Watchlist/Replace", async (
            ReplaceWatchlist replaceWatchlistCommand,
            IMediator _mediator,
            CancellationToken cancellationToken) =>
@@ -187,7 +187,7 @@ public static class TdAmeritradeApiExtensions
                         return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
                     });
 
-        app.MapPut("/TdAmeritrade/Watchlist/Update", async (
+        app.MapPut("api/Tdameritrade/Watchlist/Update", async (
             UpdateWatchlist updateWatchlistCommand,
             IMediator _mediator,
             CancellationToken cancellationToken) =>
@@ -201,7 +201,7 @@ public static class TdAmeritradeApiExtensions
             return Results.BadRequest(result.ValidationResult.Errors.Select(x => x.ErrorMessage));
         });
 
-        app.MapDelete("/TdAmeritrade/Watchlist/Delete/{watchlistId}", async (
+        app.MapDelete("api/Tdameritrade/Watchlist/Delete/{watchlistId}", async (
            string watchlistId,
            [FromQuery] string accountId,
            IMediator _mediator,
