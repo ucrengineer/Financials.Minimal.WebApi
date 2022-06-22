@@ -31,6 +31,7 @@ var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
 builder.Logging.AddConsole();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,9 +41,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.AddTdAmeritradeEndPoints(options);
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.AddTdAmeritradeEndPoints(options);
+
 
 // global exception handler
 app.UseExceptionHandler(appError =>
